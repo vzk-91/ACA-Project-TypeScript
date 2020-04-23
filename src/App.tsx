@@ -1,7 +1,7 @@
 import React, { useEffect, Dispatch, FC } from "react";
 import { Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { modalShow, modalHide } from "./actions";
+import { commonActions } from "./actions";
 import { PrivateRoute, history } from "./utils";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
@@ -81,7 +81,7 @@ const mapStateToProps = (state : AppStateType) : MapStatePropsType => {
 const mapDispatchToProps = (dispatch : Dispatch<any>) : MapDispatchPropsType => {
   return {
     modalHide: () => {
-      dispatch(modalHide());
+      dispatch(commonActions.modalHide());
     }
   };
 };

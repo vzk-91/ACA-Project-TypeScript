@@ -1,32 +1,20 @@
-import {ModalDataType} from '../Types'
-export const MODAL_SHOW = 'MODAL_SHOW';
-export const MODAL_HIDE = 'MODAL_HIDE';
+import {ModalDataType, ActionTypes} from '../Types'
 
 
-
-
-export type ModalShowActionType = {
-    type :typeof MODAL_SHOW
-    payload : ModalDataType
-}
-
-export type ModalHideActionType = {
-    type :typeof MODAL_HIDE
-}
-
-
-
-export const modalShow = (data : ModalDataType) : ModalShowActionType => {
-    return {
-        type : MODAL_SHOW,
-        payload : data
+export const commonActions = {
+     modalShow : (data : ModalDataType) => {
+        return {
+            type : 'MODAL_SHOW',
+            payload : data
+        } as const
+    } ,
+   modalHide : () => {
+        return {
+            type : 'MODAL_HIDE',
+        } as const
     }
+
 }
 
-export const modalHide = () : ModalHideActionType => {
-    return {
-        type : MODAL_HIDE,
-    }
-}
 
-export type CommonActionType = ModalShowActionType | ModalHideActionType
+ export type CommonActionType = ActionTypes<typeof commonActions>

@@ -16,7 +16,7 @@ import UserUpdate from '../UserUpdate';
 import Button from '../Button';
 import {connect} from 'react-redux';
 import {userGetPhoneThunk} from '../../thunks'
-import {userPhoneNumber} from '../../actions'
+import {userActions} from '../../actions'
 import {useAuth} from '../../utils'
 import { AppStateType } from '../../reducers';
 import {UserType} from '../../Types'
@@ -190,7 +190,7 @@ const mapDispatchToProps = (dispatch : Dispatch<any>) : MapDispatchPropsType => 
         dispatch(userGetPhoneThunk(id))
     },
     setPhoneNull :()=>{
-        dispatch(userPhoneNumber("null"))
+        dispatch(userActions.userPhoneNumber("null"))
     }
 })
 

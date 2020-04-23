@@ -2,19 +2,18 @@ import React, {useState, useEffect, FC, Dispatch} from 'react';
 import Main from '../../components/Main'
 import Block from '../../components/Block'
 import Aside from '../../components/Aside'
-import Footer from '../../components/Footer'
 import Header from '../../components/PrivateHeader/Header'
 import UpdateProfile from '../../components/UpdateProfile'
 import UserInfo from '../../components/UserInfo'
 import {connect} from 'react-redux';
-import {modalShow} from '../../actions/Common.actions'
+import {commonActions} from '../../actions/Common.actions'
 import {serviceGetByIdThunk,servicesCreateThunk,serviceUpdateThunk,serviceGetByUserThunk,serviceDeleteThunk} from '../../thunks';
 import MyServiceCard from '../../components/MyServiceCard';
 import Details from '../../components/Details';
 import FooterForm from '../../components/FooterForm/footerform'
 import {ServiceType,UserType,ModalDataType,UpdateServiceDataType} from '../../Types'
 import {AppStateType} from '../../reducers';
-import { useAuth } from '../../utils';
+
 
 
 type MapStatePropsType = {
@@ -123,7 +122,7 @@ const mapDispatchToProps = (dispatch : Dispatch<any> ) : MapDispatchPropsType =>
        dispatch(serviceDeleteThunk(id))
      },
      errorModal : (data : ModalDataType) => {
-        dispatch(modalShow(data))
+        dispatch(commonActions.modalShow(data))
      }
   }
 }

@@ -1,11 +1,6 @@
 import { ServiceType } from '../Types/ServicesType';
 import firebase from '../vendor/sdk';
-import {updateServiceRequest,updateServiceSuccess,updateServiceFailure,
-        deleteServiceRequest,deleteServiceSuccess,deleteServiceFailure,
-        createServiceRequest,createServiceSuccess,createServiceFailure,
-        getServiceListRequest, getServiceListSuccess, getServiceListFailure,
-        getServiceByUserRequest,getServiceByUserSuccess,getServiceByUserFailure,
-        getServiceByIdRequest, getServiceByIdSuccess, getServiceByIdFailure, ServiceActionType ,} from '../actions'
+import {serviceActions ,ServiceActionType ,} from '../actions'
 import { ThunkAction } from 'redux-thunk';
 import {AppStateType} from '../reducers'
 import {UpdateServiceDataType} from '../Types'
@@ -18,13 +13,13 @@ export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, Servic
 export const serviceUpdateThunk = (id : string ,data : UpdateServiceDataType) : ThunkType=> async (dispatch ) =>{
     const ref = firebase.db.collection("service").doc(id)
     try {
-        dispatch(updateServiceRequest())
+        dispatch(serviceActions.updateServiceRequest())
         const doc = await ref.get()
         if(doc.exists) {
             ref.update(data)
-        } dispatch(updateServiceSuccess())
+        } dispatch(serviceActions.updateServiceSuccess())
     } catch (error) {
-        dispatch(updateServiceFailure("ERROR SERVICE NOT UPTADED"))
+        dispatch(serviceActions.updateServiceFailure("ERROR SERVICE NOT UPTADED"))
     }
 }
 
@@ -34,52 +29,52 @@ export const serviceUpdateThunk = (id : string ,data : UpdateServiceDataType) : 
 export const serviceGetByIdThunk = (id : string | null ) :ThunkType => async (dispatch) => {
     try {
         if(id){
-        dispatch(getServiceByIdRequest())
+        dispatch(serviceActions.getServiceByIdRequest())
        firebase.db.collection("service").doc(id).onSnapshot(snapshot => {
            const newService =  snapshot.data()
-           dispatch(getServiceByIdSuccess(newService))
+           dispatch(serviceActions.getServiceByIdSuccess(newService))
        });
       } else {
-         dispatch(getServiceByIdSuccess({}))
+         dispatch(serviceActions.getServiceByIdSuccess({}))
       }
     } catch (error) {
-        dispatch(getServiceByIdFailure("ERROR"))
+        dispatch(serviceActions.getServiceByIdFailure("ERROR"))
     }
 }
 
     export const serviceGetByUserThunk = (id: string ) : ThunkType=> async (dispatch) => {
         try {
-            dispatch(getServiceByUserRequest())
+            dispatch(serviceActions.getServiceByUserRequest())
            firebase.db.collection("service").where("owner.id", "==", id).onSnapshot(snapshot => {
                const newService =  snapshot.docs.map(doc =>({id: doc.id, ...doc.data()}))
-               dispatch(getServiceByUserSuccess(newService))
+               dispatch(serviceActions.getServiceByUserSuccess(newService))
            });
         } catch (error) {
-            dispatch(getServiceByUserFailure("ERROR"))
+            dispatch(serviceActions.getServiceByUserFailure("ERROR"))
         }
     }
 
 export const serviceGetThunk = () : ThunkType=> async (dispatch) => {
     try {
-        dispatch(getServiceListRequest())
+        dispatch(serviceActions.getServiceListRequest())
        firebase.db.collection("service").onSnapshot(snapshot => {
            const newService =  snapshot.docs.map(doc =>({id: doc.id, ...doc.data()}))
-           dispatch(getServiceListSuccess(newService))
+           dispatch(serviceActions.getServiceListSuccess(newService))
        });
     } catch (error) {
-        dispatch(getServiceListFailure("ERROR"))
+        dispatch(serviceActions.getServiceListFailure("ERROR"))
     }
 }
 
 export const serviceGetCategoriesThunk = (category : string) : ThunkType => async (dispatch) => {
     try {
-        dispatch(getServiceListRequest())
+        dispatch(serviceActions.getServiceListRequest())
        firebase.db.collection("service").where("serviceCategory", "==", category).onSnapshot(snapshot => {
            const newService =  snapshot.docs.map(doc =>({id: doc.id, ...doc.data()}))
-           dispatch(getServiceListSuccess(newService))
+           dispatch(serviceActions.getServiceListSuccess(newService))
        });
     } catch (error) {
-        dispatch(getServiceListFailure("ERROR"))
+        dispatch(serviceActions.getServiceListFailure("ERROR"))
     }
 }
 
@@ -88,22 +83,22 @@ export const serviceGetCategoriesThunk = (category : string) : ThunkType => asyn
 export const serviceDeleteThunk = (id : string  ) : ThunkType=> async (dispatch) =>{
     const ref = firebase.db.collection("service").doc(id)
     try {
-        dispatch(deleteServiceRequest())
+        dispatch(serviceActions.deleteServiceRequest())
         const doc = await ref.get()
         if(doc.exists) {
             ref.delete()
-        } dispatch(deleteServiceSuccess())
+        } dispatch(serviceActions.deleteServiceSuccess())
     } catch (error) {
-        dispatch(deleteServiceFailure("ERROR SERVICE NOT DELETED"))
+        dispatch(serviceActions.deleteServiceFailure("ERROR SERVICE NOT DELETED"))
     }
 }
 
 export const servicesCreateThunk = (data : ServiceType) : ThunkType => async (dispatch) => {
     try {
-        dispatch(createServiceRequest())
+        dispatch(serviceActions.createServiceRequest())
        await firebase.db.collection('service').add(data)
-        dispatch(createServiceSuccess())
+        dispatch(serviceActions.createServiceSuccess())
     } catch (error) {
-        dispatch(createServiceFailure("ERROR NOT CREATE SERVICE"))
+        dispatch(serviceActions.createServiceFailure("ERROR NOT CREATE SERVICE"))
     }
 }
