@@ -11,7 +11,7 @@ import Details from '../../components/Details'
 import FooterForm from '../../components/FooterForm/footerform'
 import {ServiceType,UserType} from '../../Types'
 import {AppStateType} from '../../reducers';
-import { MatchProps } from '../../Types';
+import {getServiceByUserSel} from '../../Selectors'
 
 
 
@@ -90,10 +90,8 @@ const OtherUserProfile : FC<PropsType> = ({getServiceByUser,user, serviceByUser,
   )
 }
 const mapStateToProps = (state : AppStateType) : MapStatePropsType => {
-  const {service} = state
-  const {serviceByUser} = service
   return {
-    serviceByUser
+    serviceByUser : getServiceByUserSel(state)
   }
 }
 const mapDispatchToProps = (dispatch : Dispatch<any>) : MapDispatchPropsType => {

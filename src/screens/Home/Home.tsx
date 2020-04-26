@@ -13,6 +13,7 @@ import { serviceGetThunk, serviceGetCategoriesThunk } from "../../thunks";
 import FooterForm from '../../components/FooterForm/footerform'
 import {ServiceType,UserType} from '../../Types'
 import {AppStateType} from '../../reducers';
+import {getServiceSel} from '../../Selectors'
 
 
 
@@ -140,10 +141,8 @@ const Home : FC<PropsType> = ({ services, getServices, getByCategory, user }) =>
 };
 
 const mapStateToProps = (state : AppStateType) : MapStatePropsType => {
-  const  {service}    = state;
-  const { services } = service;
   return {
-    services 
+    services : getServiceSel(state)
   };
 };
 

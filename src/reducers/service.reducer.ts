@@ -16,14 +16,14 @@ const defaultState = {
     services : [] as Array<ServiceType>,
     serviceById : {} as ServiceType,
     serviceByUser : [] as Array<ServiceType>,
-    error : null,
+    error : null as null | string,
     isLoading : false
 }
 
-type DefaultStateType = typeof defaultState
+export type DefaultStateType = typeof defaultState
 
 
-export default function loginReducer  (state : DefaultStateType = defaultState, action : ServiceActionType) {
+export default function loginReducer  (state : DefaultStateType = defaultState, action : ServiceActionType) : DefaultStateType {
    switch(action.type){
        case 'CREATE_SERVICE_REQUEST' : 
             return {

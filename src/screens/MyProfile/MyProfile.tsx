@@ -13,6 +13,7 @@ import Details from '../../components/Details';
 import FooterForm from '../../components/FooterForm/footerform'
 import {ServiceType,UserType,ModalDataType,UpdateServiceDataType} from '../../Types'
 import {AppStateType} from '../../reducers';
+import {getServiceByUserSel} from '../../Selectors'
 
 
 
@@ -98,10 +99,8 @@ const scrollTo = () => {}
       </>)
 }
 const mapStateToProps = (state : AppStateType) : MapStatePropsType =>{
-  const {service} = state
-  const {serviceByUser} = service
   return {
-     serviceByUser
+     serviceByUser : getServiceByUserSel(state)
   }
 } 
 const mapDispatchToProps = (dispatch : Dispatch<any> ) : MapDispatchPropsType =>{

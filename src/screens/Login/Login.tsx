@@ -5,6 +5,7 @@ import ContentLogin from '../../components/ContentLogin/ContentLogin';
 import { userLoginThunk } from '../../thunks';
 import {UserLoginType} from '../../Types'
 import {AppStateType} from '../../reducers';
+import {getIsLoadingSel} from '../../Selectors'
 
 type MapStatePropsType = {
     isLoading: boolean
@@ -35,7 +36,7 @@ const Login : FC<PropsType> = (props) => {
 
 const mapToProps = (state : AppStateType) : MapStatePropsType => {
     return {
-        isLoading: state.user.isLoading
+        isLoading: getIsLoadingSel(state)
     }
 }
 
